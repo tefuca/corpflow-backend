@@ -1,0 +1,96 @@
+corpflow-backend/
+├── src/
+│   ├── main.ts
+│   ├── app.module.ts
+│   ├── config/
+│   │   └── database.config.ts
+│   ├── auth/
+│   │   ├── auth.module.ts
+│   │   ├── auth.controller.ts
+│   │   ├── auth.service.ts
+│   │   ├── auth.guard.ts
+│   │   ├── roles.guard.ts
+│   │   ├── jwt.strategy.ts
+│   │   └── dto/
+│   │       ├── login.dto.ts
+│   │       └── register.dto.ts
+│   ├── users/
+│   │   ├── users.module.ts
+│   │   ├── users.controller.ts
+│   │   ├── users.service.ts
+│   │   ├── entities/
+│   │   │   └── user.entity.ts
+│   │   └── dto/
+│   │       └── create-user.dto.ts
+│   ├── roles/
+│   │   ├── roles.module.ts
+│   │   ├── roles.controller.ts
+│   │   ├── roles.service.ts
+│   │   └── entities/
+│   │       └── role.entity.ts
+│   ├── permissions/
+│   │   ├── permissions.module.ts
+│   │   └── entities/
+│   │       └── permission.entity.ts
+│   ├── stock/
+│   │   ├── stock.module.ts
+│   │   ├── stock.controller.ts
+│   │   ├── stock.service.ts
+│   │   └── entities/
+│   │       └── stock-item.entity.ts
+│   ├── assets/
+│   │   ├── assets.module.ts
+│   │   ├── assets.controller.ts
+│   │   ├── assets.service.ts
+│   │   └── entities/
+│   │       └── asset.entity.ts
+│   ├── employees/
+│   │   ├── employees.module.ts
+│   │   ├── employees.controller.ts
+│   │   ├── employees.service.ts
+│   │   └── entities/
+│   │       └── employee.entity.ts
+│   ├── budgets/
+│   │   ├── budgets.module.ts
+│   │   ├── budgets.controller.ts
+│   │   ├── budgets.service.ts
+│   │   └── entities/
+│   │       └── budget.entity.ts
+│   ├── projects/
+│   │   ├── projects.module.ts
+│   │   ├── projects.controller.ts
+│   │   ├── projects.service.ts
+│   │   └── entities/
+│   │       └── project.entity.ts
+│   ├── activities/
+│   │   ├── activities.module.ts
+│   │   ├── activities.controller.ts
+│   │   ├── activities.service.ts
+│   │   └── entities/
+│   │       └── activity.entity.ts
+│   ├── payments/
+│   │   ├── payments.module.ts
+│   │   ├── payments.controller.ts
+│   │   ├── payments.service.ts
+│   │   └── entities/
+│   │       └── payment.entity.ts
+│   ├── executions/
+│   │   ├── executions.module.ts
+│   │   ├── executions.controller.ts
+│   │   ├── executions.service.ts
+│   │   └── entities/
+│   │       └── execution.entity.ts
+│   ├── audit-logs/
+│   │   ├── audit-logs.module.ts
+│   │   ├── audit-logs.controller.ts
+│   │   ├── audit-logs.service.ts
+│   │   └── entities/
+│   │       └── audit-log.entity.ts
+│   └── master-data/
+│       ├── master-data.module.ts
+│       ├── master-data.controller.ts
+│       └── master-data.service.ts
+├── package.json
+├── tsconfig.json
+├── nest-cli.json
+└── .env
