@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RbacModule } from '../rbac/rbac.module';
 import { AgentController } from './agent.controller';
 import { AgentService } from './agent.service';
+import { CommissionEngineService } from './services/commission-engine.service';
+import { ClientKpiBillingService } from './services/client-kpi-billing.service';
+
 import { Agent } from './entities/agent.entity';
 import { Dap } from './entities/dap.entity';
 import { AgentStatusHistory } from './entities/agent-status-history.entity';
@@ -24,10 +28,7 @@ import { AgentTraining } from './entities/agent-training.entity';
     RbacModule,
   ],
   controllers: [AgentController],
-  CommissionController],
-  providers: [AgentService,
-  CommissionEngineService, 
- ClientKpiBillingService,
-  exports: [AgentService],
+  providers: [AgentService, CommissionEngineService, ClientKpiBillingService],
+  exports: [AgentService, CommissionEngineService, ClientKpiBillingService],
 })
 export class AgentModule {}
