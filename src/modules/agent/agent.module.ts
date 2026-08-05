@@ -21,9 +21,13 @@ import { AgentTraining } from './entities/agent-training.entity';
       CommissionRate, KpiDefinition, KpiAchievement,
       ClientBillingRecord, AgentDocument, TrainingModule, AgentTraining,
     ]),
+    RbacModule,
   ],
   controllers: [AgentController],
-  providers: [AgentService],
+  CommissionController],
+  providers: [AgentService,
+  CommissionEngineService, 
+ ClientKpiBillingService,
   exports: [AgentService],
 })
 export class AgentModule {}
