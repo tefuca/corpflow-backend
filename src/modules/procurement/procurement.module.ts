@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RbacModule } from '../rbac/rbac.module';
 import { ProcurementController } from './procurement.controller';
 import { ProcurementService } from './procurement.service';
+import { ThreeWayMatchService } from './services/three-way-match.service';
+
 import { Vendor } from './entities/vendor.entity';
 import { PurchaseRequisition } from './entities/purchase-requisition.entity';
 import { PurchaseOrder } from './entities/purchase-order.entity';
@@ -24,8 +27,7 @@ import { ClientConsignment } from './entities/client-consignment.entity';
     RbacModule,
   ],
   controllers: [ProcurementController],
-  ThreeWayMatchService],
-  providers: [ProcurementService],
-  exports: [ProcurementService],
+  providers: [ProcurementService, ThreeWayMatchService],
+  exports: [ProcurementService, ThreeWayMatchService],
 })
 export class ProcurementModule {}
