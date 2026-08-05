@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RbacModule } from '../rbac/rbac.module';
-import { AgentController } from './agent.controller';
-import { AgentService } from './agent.service';
+import { AgentController } from './controllers/agent.controller';
+import { DapController } from './controllers/dap.controller';
+import { CommissionRateController } from './controllers/commission-rate.controller';
+import { KpiDefinitionController } from './controllers/kpi-definition.controller';
+import { TrainingModuleController } from './controllers/training-module.controller';
+import { AgentService } from './services/agent.service';
+import { DapService } from './services/dap.service';
 import { CommissionEngineService } from './services/commission-engine.service';
-import { ClientKpiBillingService } from './services/client-kpi-billing.service';
-
+import { ClientBillingService } from './services/client-billing.service';
+import { CommissionRateService } from './services/commission-rate.service';
+import { KpiDefinitionService } from './services/kpi-definition.service';
+import { TrainingModuleService } from './services/training-module.service';
 import { Agent } from './entities/agent.entity';
 import { Dap } from './entities/dap.entity';
 import { AgentStatusHistory } from './entities/agent-status-history.entity';
@@ -17,6 +23,8 @@ import { ClientBillingRecord } from './entities/client-billing-record.entity';
 import { AgentDocument } from './entities/agent-document.entity';
 import { TrainingModule } from './entities/training-module.entity';
 import { AgentTraining } from './entities/agent-training.entity';
+import { ClientInvoice } from '../finance/entities/client-invoice.entity';
+import { ClientInvoiceLine } from '../finance/entities/client-invoice-line.entity';
 
 @Module({
   imports: [
@@ -24,11 +32,25 @@ import { AgentTraining } from './entities/agent-training.entity';
       Agent, Dap, AgentStatusHistory, CommissionRecord,
       CommissionRate, KpiDefinition, KpiAchievement,
       ClientBillingRecord, AgentDocument, TrainingModule, AgentTraining,
+      ClientInvoice, ClientInvoiceLine,
     ]),
-    RbacModule,
   ],
-  controllers: [AgentController],
-  providers: [AgentService, CommissionEngineService, ClientKpiBillingService],
-  exports: [AgentService, CommissionEngineService, ClientKpiBillingService],
+  controllers: [
+    AgentController,
+    DapController,
+    CommissionRateController,
+    KpiDefinitionController,
+    TrainingModuleController,
+  ],
+  providers: [
+    AgentService,
+    DapService,
+    CommissionEngineService,
+    ClientBillingService,
+    CommissionRateService,
+    KpiDefinitionService,
+    TrainingModuleService,
+  ],
+  exports: [AgentService, CommissionEngineService, ClientBillingService],
 })
 export class AgentModule {}
