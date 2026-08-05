@@ -6,6 +6,8 @@ import { JwtAuthGuard } from '../../modules/auth/guards/jwt-auth.guard';
 import { PermissionGuard } from '../../modules/rbac/guards/permission.guard';
 import { RequirePermission } from '../../modules/rbac/decorators/require-permission.decorator';
 import { TrainingModuleService } from '../services/training-module.service';
+import { CreateTrainingModuleDto } from '../dto/create-training-module.dto';
+import { UpdateTrainingModuleDto } from '../dto/update-training-module.dto';
 
 @ApiTags('Training Modules')
 @ApiBearerAuth()
@@ -17,7 +19,7 @@ export class TrainingModuleController {
   @Post()
   @RequirePermission('training:create')
   @ApiOperation({ summary: 'Create training module' })
-  async create(@Body() body: any) {
+  async create(@Body() body: DTO) {
     const mod = await this.service.create(body);
     return { success: true, data: mod };
   }
@@ -36,7 +38,7 @@ export class TrainingModuleController {
 
   @Put(':id')
   @RequirePermission('training:update')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  async update(@Param('id', ParseIntPipe) id: number, @Body() body: DTO) {
     return { success: true, data: await this.service.update(id, body) };
   }
 
