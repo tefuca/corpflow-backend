@@ -21,8 +21,10 @@ import { ClientConsignment } from './entities/client-consignment.entity';
       GoodsReceiptNote, GrnItem, VendorInvoice, ThreeWayMatch,
       StockItem, StockMovement, ClientConsignment,
     ]),
+    RbacModule,
   ],
   controllers: [ProcurementController],
+  ThreeWayMatchService],
   providers: [ProcurementService],
   exports: [ProcurementService],
 })
