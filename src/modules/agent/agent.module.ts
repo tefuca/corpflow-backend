@@ -12,6 +12,7 @@ import { ClientBillingService } from './services/client-billing.service';
 import { CommissionRateService } from './services/commission-rate.service';
 import { KpiDefinitionService } from './services/kpi-definition.service';
 import { TrainingModuleService } from './services/training-module.service';
+
 import { Agent } from './entities/agent.entity';
 import { Dap } from './entities/dap.entity';
 import { AgentStatusHistory } from './entities/agent-status-history.entity';
@@ -23,8 +24,6 @@ import { ClientBillingRecord } from './entities/client-billing-record.entity';
 import { AgentDocument } from './entities/agent-document.entity';
 import { TrainingModule } from './entities/training-module.entity';
 import { AgentTraining } from './entities/agent-training.entity';
-import { ClientInvoice } from '../finance/entities/client-invoice.entity';
-import { ClientInvoiceLine } from '../finance/entities/client-invoice-line.entity';
 
 @Module({
   imports: [
@@ -32,7 +31,6 @@ import { ClientInvoiceLine } from '../finance/entities/client-invoice-line.entit
       Agent, Dap, AgentStatusHistory, CommissionRecord,
       CommissionRate, KpiDefinition, KpiAchievement,
       ClientBillingRecord, AgentDocument, TrainingModule, AgentTraining,
-      ClientInvoice, ClientInvoiceLine,
     ]),
   ],
   controllers: [
@@ -51,6 +49,10 @@ import { ClientInvoiceLine } from '../finance/entities/client-invoice-line.entit
     KpiDefinitionService,
     TrainingModuleService,
   ],
-  exports: [AgentService, CommissionEngineService, ClientBillingService],
+  exports: [
+    AgentService,
+    CommissionEngineService,
+    ClientBillingService,
+  ],
 })
 export class AgentModule {}
