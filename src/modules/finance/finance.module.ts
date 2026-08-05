@@ -1,4 +1,3 @@
-// src/modules/finance/finance.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RbacModule } from '../rbac/rbac.module';
@@ -6,7 +5,6 @@ import { FinanceController } from './finance.controller';
 import { FinanceService } from './finance.service';
 import { UnifiedPaymentService } from './services/unified-payment.service';
 
-// Finance entities
 import { Client } from './entities/client.entity';
 import { ChartOfAccount } from './entities/chart-of-account.entity';
 import { GlJournalEntry } from './entities/gl-journal-entry.entity';
@@ -20,15 +18,9 @@ import { PaymentVoucher } from './entities/payment-voucher.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      Client,
-      ChartOfAccount,
-      GlJournalEntry,
-      GlJournalLine,
-      ClientInvoice,
-      ClientInvoiceLine,
-      ClientPayment,
-      AccountsPayable,
-      PaymentVoucher,
+      Client, ChartOfAccount, GlJournalEntry, GlJournalLine,
+      ClientInvoice, ClientInvoiceLine, ClientPayment,
+      AccountsPayable, PaymentVoucher,
     ]),
     RbacModule,
   ],
