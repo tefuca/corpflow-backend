@@ -1,9 +1,10 @@
-// src/modules/project/project.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RbacModule } from '../rbac/rbac.module';
 import { ProjectController } from './project.controller';
 import { ProjectService } from './project.service';
+import { ProjectCostingService } from './services/project-costing.service';
+
 import { Project } from './entities/project.entity';
 import { Milestone } from './entities/milestone.entity';
 import { Task } from './entities/task.entity';
@@ -15,18 +16,13 @@ import { ProjectBudget } from './entities/project-budget.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      Project,
-      Milestone,
-      Task,
-      ResourceAllocation,
-      TimeEntry,
-      ProjectExpense,
-      ProjectBudget,
+      Project, Milestone, Task, ResourceAllocation,
+      TimeEntry, ProjectExpense, ProjectBudget,
     ]),
-    RbacModule, // ← Keep this from your GitHub version
+    RbacModule,
   ],
   controllers: [ProjectController],
-  providers: [ProjectService],
-  exports: [ProjectService],
+  providers: [ProjectService, ProjectCostingService],
+  exports: [ProjectService, ProjectCostingService],
 })
 export class ProjectModule {}
