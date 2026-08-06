@@ -11,14 +11,20 @@ import { PaymentModule } from './modules/payment/payment.module';
 
 // NEW Feature Modules
 import { ProcurementModule } from './modules/procurement/procurement.module';
-import { InventoryModule } from './modules/inventory/inventory.module';
-import { FixedAssetsModule } from './modules/fixed-assets/fixed-assets.module';
+import { StockModule } from './modules/stock/stock.module';
+import { FixedAssetModule } from './modules/fixed-asset/fixed-asset.module';
 import { HrModule } from './modules/hr/hr.module';
 import { ProjectModule } from './modules/project/project.module';
 import { AgentModule } from './modules/agent/agent.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { DocumentModule } from './modules/document/document.module';
+import { ActivityModule } from './modules/activity/activities.module';
+import { AuditLogModule } from './modules/audit-log/audit-logs.module';
+import { AssetModule } from './modules/asset/assets.module';
+import { BudgetModule } from './modules/budget/budgets.module';
+import { ExecutionModule } from './modules/execution/executions.module';
+import { MasterDataModule } from './modules/master-data/master-data.module';
 
 @Module({
   imports: [
