@@ -9,10 +9,10 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
-import { User } from '../modules/rbac/entities/user.entity';
-import { Role } from '../modules/rbac/entities/role.entity';
-import { RbacModule } from '../modules/rbac/rbac.module';
-import { AuditLogModule } from '../audit-logs/audit-logs.module';
+import { User } from '../rbac/entities/user.entity';
+import { Role } from '../rbac/entities/role.entity';
+import { RbacModule } from '../rbac/rbac.module';
+import { AuditLogModule } from '../audit-log/audit-logs.module';
 
 @Module({
   imports: [
