@@ -13,8 +13,8 @@ import { PermissionGuard } from '../auth/guards/permission.guard';
   imports: [
     TypeOrmModule.forFeature([Role, User, UserRole, SystemFunction, RolePermission]),
   ],
-  providers: [RbacService, PermissionGuard],
+  providers: [RbacService, PermissionGuard, SeedService],
   controllers: [RbacController],
-  exports: [RbacService, PermissionGuard],
+  exports: [RbacService, PermissionGuard, SeedService],
 })
 export class RbacModule {}
