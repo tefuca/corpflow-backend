@@ -9,8 +9,8 @@ import { Repository, Like } from 'typeorm';
 import { Budget, BudgetStatus, BudgetType } from './entities/budget.entity';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
-import { AuditLogService } from '../audit-logs/audit-logs.service';
-import { AuditAction } from '../audit-logs/entities/audit-log.entity';
+import { AuditLogService } from '../audit-log/audit-logs.service';
+import { AuditAction } from '../audit-log/entities/audit-log.entity';
 
 @Injectable()
 export class BudgetsService {
