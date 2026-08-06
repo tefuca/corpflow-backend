@@ -66,14 +66,19 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
 
     // NEW modules
     ProcurementModule,
-    InventoryModule,
-    FixedAssetsModule,
+    StockModule,
+    FixedAssetModule,
     HrModule,
     ProjectModule,
     AgentModule,
     FinanceModule,
     NotificationModule,
     DocumentModule,
+    ActivityModule, 
+    AuditLogModule, 
+    BudgetModule, 
+    ExecutionModule, 
+    MasterDataModule,
   ],
 })
 export class AppModule {}
