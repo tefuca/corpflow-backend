@@ -9,8 +9,8 @@ import { Repository, Like } from 'typeorm';
 import { Activity, ActivityStatus, ActivityPriority } from './entities/activity.entity';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
-import { AuditLogService } from '../audit-logs/audit-logs.service';
-import { AuditAction } from '../audit-logs/entities/audit-log.entity';
+import { AuditLogService } from '../audit-log/audit-logs.service';
+import { AuditAction } from '../audit-log/entities/audit-log.entity';
 
 @Injectable()
 export class ActivitiesService {
