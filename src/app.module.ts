@@ -66,7 +66,7 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
 
     // NEW modules
     ProcurementModule,
-    StockModule,
+    StockModule, 
     FixedAssetModule,
     HrModule,
     ProjectModule,
