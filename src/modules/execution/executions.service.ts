@@ -9,8 +9,8 @@ import { Repository, Like, Between } from 'typeorm';
 import { Execution, ExecutionStatus, ExecutionType } from './entities/execution.entity';
 import { CreateExecutionDto } from './dto/create-execution.dto';
 import { UpdateExecutionDto } from './dto/update-execution.dto';
-import { AuditLogService } from '../audit-logs/audit-logs.service';
-import { AuditAction } from '../audit-logs/entities/audit-log.entity';
+import { AuditLogService } from '../audit-log/audit-logs.service';
+import { AuditAction } from '../audit-log/entities/audit-log.entity';
 
 @Injectable()
 export class ExecutionsService {
