@@ -7,7 +7,7 @@ import { User } from './entities/user.entity';
 import { UserRole } from './entities/user-role.entity';
 import { SystemFunction } from './entities/system-function.entity';
 import { RolePermission } from './entities/role-permission.entity';
-import { PermissionGuard } from '../../auth/guards/permission.guard';
+import { PermissionGuard } from '../auth/guards/permission.guard';
 
 @Module({
   imports: [
