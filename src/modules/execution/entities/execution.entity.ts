@@ -9,7 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Payment } from '../../payments/entities/payment.entity';
+import { Payment } from '../payments/entities/payment.entity';
 
 export enum ExecutionStatus {
   PENDING = 'pending',
