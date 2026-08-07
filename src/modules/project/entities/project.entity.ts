@@ -11,6 +11,7 @@ import { Activity } from '../activity/entities/activity.entity';
 import { Payment } from '../payment/entities/payment.entity';
 import { Budget } from '../budget/entities/budget.entity';
 import { Asset } from '../asset/entities/asset.entity';
+import { forwardRef } from '@nestjs/common';
 
 export enum ProjectStatus {
   DRAFT = 'draft',
@@ -112,15 +113,15 @@ export class Project {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => Asset, (asset) => asset.project)
-  assets: Asset[];
+ @OneToMany(() => forwardRef(() => Asset), (asset) => asset.project)
+assets: Asset[];
 
-  @OneToMany(() => Budget, (budget) => budget.project)
-  budgets: Budget[];
+@OneToMany(() => forwardRef(() => Budget), (budget) => budget.project)
+budgets: Budget[];
 
-  @OneToMany(() => Activity, (activity) => activity.project)
-  activities: Activity[];
+@OneToMany(() => forwardRef(() => Activity), (activity) => activity.project)
+activities: Activity[];
 
-  @OneToMany(() => Payment, (payment) => payment.project)
-  payments: Payment[];
+@OneToMany(() => forwardRef(() => Payment), (payment) => payment.project)
+payments: Payment[];
 }
