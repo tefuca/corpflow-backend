@@ -9,8 +9,8 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Project } from '../../projects/entities/project.entity';
-import { Execution } from '../../executions/entities/execution.entity';
+import { Project } from '../projects/entities/project.entity';
+import { Execution } from '../executions/entities/execution.entity';
 
 export enum PaymentStatus {
   DRAFT = 'draft',
