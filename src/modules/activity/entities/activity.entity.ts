@@ -9,7 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Project } from '../../projects/entities/project.entity';
+import { Project } from '../projects/entities/project.entity';
 
 export enum ActivityStatus {
   NOT_STARTED = 'not_started',
