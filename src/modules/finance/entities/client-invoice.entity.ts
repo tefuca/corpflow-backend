@@ -61,6 +61,9 @@ export class ClientInvoice extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   notes: string | null;
 
+  @Column({ unique: true })
+  invoiceNumber: string;  
+
   @OneToMany(() => ClientInvoiceLine, (line) => line.invoice)
   lines: ClientInvoiceLine[];
 }
