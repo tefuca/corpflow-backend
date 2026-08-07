@@ -9,8 +9,16 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Project } from '../projects/entities/project.entity';
-import { Execution } from '../executions/entities/execution.entity';
+import { Project } from '../project/entities/project.entity';
+import { Execution } from '../execution/entities/execution.entity';
+
+// Add this enum if it doesn't exist elsewhere
+export enum PaymentFlowType {
+  VENDOR_AP = 'vendor_ap',
+  DAP_COMMISSION = 'dap_commission',
+  CLIENT_AR = 'client_ar',
+  PAYROLL = 'payroll',
+}
 
 export enum PaymentStatus {
   DRAFT = 'draft',
@@ -161,44 +169,33 @@ export class Payment {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @Column({ unique: true })
-paymentNumber: string;
+  // Properties needed by unified-payment.service.ts
+  @Column({ type: 'varchar', length: 50, unique: true, nullable: true })
+  paymentNumber: string;
 
-@Column({ type: 'enum', enum: PaymentFlowType })
-flowType: PaymentFlowType;
+  @Column({ type: 'enum', enum: PaymentFlowType, nullable: true })
+  flowType: PaymentFlowType;
 
-@Column({ nullable: true })
-verifiedBy: string;
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  verifiedBy: string;
 
-@Column({ type: 'datetime', nullable: true })
-verifiedAt: Date;
+  @Column({ type: 'timestamp', nullable: true })
+  verifiedAt: Date;
 
-@Column({ nullable: true })
-approvedBy: string;
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  executedBy: string;
 
-@Column({ type: 'datetime', nullable: true })
-approvedAt: Date;
+  @Column({ type: 'timestamp', nullable: true })
+  executedAt: Date;
 
-@Column({ nullable: true })
-executedBy: string;
+  @Column({ type: 'uuid', nullable: true })
+  journalEntryId: string;
 
-@Column({ type: 'datetime', nullable: true })
-executedAt: Date;
+  @Column({ type: 'uuid', nullable: true })
+  referenceId: string;
 
-@Column({ type: 'datetime', nullable: true })
-paymentDate: Date;
-
-@Column({ nullable: true })
-journalEntryId: number;
-
-@Column({ nullable: true })
-referenceId: number;
-
-@Column({ nullable: true })
-projectId: number;
-
-@Column({ nullable: true })
-costCenter: string;
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  costCenter: string;
 
   @OneToMany(() => Execution, (execution) => execution.payment)
   executions: Execution[];
