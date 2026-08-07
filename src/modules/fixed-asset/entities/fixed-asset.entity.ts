@@ -96,4 +96,20 @@ export class FixedAsset {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  // src/modules/fixed-asset/entities/asset.entity.ts
+@Column({ type: 'enum', enum: DepreciationMethod })
+depreciationMethod: DepreciationMethod;
+
+@Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+salvageValue: number;
+
+@Column()
+usefulLifeYears: number;
+
+@Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
+depreciationRate: number;
+
+@Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+currentBookValue: number;
 }
