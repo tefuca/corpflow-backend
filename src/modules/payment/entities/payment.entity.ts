@@ -161,6 +161,45 @@ export class Payment {
   @DeleteDateColumn()
   deletedAt: Date;
 
+  @Column({ unique: true })
+paymentNumber: string;
+
+@Column({ type: 'enum', enum: PaymentFlowType })
+flowType: PaymentFlowType;
+
+@Column({ nullable: true })
+verifiedBy: string;
+
+@Column({ type: 'datetime', nullable: true })
+verifiedAt: Date;
+
+@Column({ nullable: true })
+approvedBy: string;
+
+@Column({ type: 'datetime', nullable: true })
+approvedAt: Date;
+
+@Column({ nullable: true })
+executedBy: string;
+
+@Column({ type: 'datetime', nullable: true })
+executedAt: Date;
+
+@Column({ type: 'datetime', nullable: true })
+paymentDate: Date;
+
+@Column({ nullable: true })
+journalEntryId: number;
+
+@Column({ nullable: true })
+referenceId: number;
+
+@Column({ nullable: true })
+projectId: number;
+
+@Column({ nullable: true })
+costCenter: string;
+
   @OneToMany(() => Execution, (execution) => execution.payment)
   executions: Execution[];
 }
