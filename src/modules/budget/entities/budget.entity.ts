@@ -8,7 +8,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Project } from '../../projects/entities/project.entity';
+import { Project } from '../projects/entities/project.entity';
 
 export enum BudgetStatus {
   DRAFT = 'draft',
