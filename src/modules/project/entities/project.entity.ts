@@ -7,10 +7,10 @@ import {
   DeleteDateColumn,
   OneToMany,
 } from 'typeorm';
-import { Activity } from '../activities/entities/activity.entity';
-import { Payment } from '../payments/entities/payment.entity';
-import { Budget } from '../budgets/entities/budget.entity';
-import { Asset } from '../assets/entities/asset.entity';
+import { Activity } from '../activity/entities/activity.entity';
+import { Payment } from '../payment/entities/payment.entity';
+import { Budget } from '../budget/entities/budget.entity';
+import { Asset } from '../asset/entities/asset.entity';
 
 export enum ProjectStatus {
   DRAFT = 'draft',
