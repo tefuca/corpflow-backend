@@ -9,7 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Payment } from '../payments/entities/payment.entity';
+import { Payment } from '../payment/entities/payment.entity';
 
 export enum ExecutionStatus {
   PENDING = 'pending',
@@ -47,7 +47,7 @@ export class Execution {
   @Column({ type: 'uuid' })
   paymentId: string;
 
-  @ManyToOne(() => Payment, (payment) => payment.executions)
+  @ManyToOne(() => forwardRef(() => Payment), (payment) => payment.executions)
   @JoinColumn({ name: 'paymentId' })
   payment: Payment;
 
