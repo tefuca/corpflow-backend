@@ -47,7 +47,7 @@ export class Asset {
   @Column({ type: 'uuid', nullable: true })
   projectId: string;
 
-  @ManyToOne(() => Project, (project) => project.assets, { nullable: true })
+  @ManyToOne(() => forwardRef(() => Project), (project) => project.activities, { nullable: true })
   @JoinColumn({ name: 'projectId' })
   project: Project;
 
