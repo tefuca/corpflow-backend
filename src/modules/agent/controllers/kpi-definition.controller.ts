@@ -3,8 +3,8 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../modules/auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../modules/rbac/guards/permission.guard';
-import { RequirePermission } from '../../modules/rbac/decorators/require-permission.decorator';
+import { PermissionGuard } from '../rbac/guards/permission.guard';
+import { RequirePermission } from '../rbac/decorators/require-permission.decorator';
 import { KpiDefinitionService } from '../services/kpi-definition.service';
 import { CreateKpiDefinitionDto } from '../dto/create-kpi-definition.dto';
 
