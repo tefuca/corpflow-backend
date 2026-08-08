@@ -1,4 +1,4 @@
-// src/modules/agent/entities/agent.entity.ts
+import { forwardRef } from '@nestjs/common';
 @Column({ unique: true })
 agentCode: string;
 
@@ -17,6 +17,6 @@ projectId: number;
 @Column({ nullable: true })
 dapId: number;
 
-@ManyToOne(() => Dap, (dap) => dap.agents, { nullable: true })
+@ManyToOne(() => forwardRef(() => Dap), (dap) => dap.agents, { nullable: true })
 @JoinColumn({ name: 'dapId' })
 dap: Dap;
