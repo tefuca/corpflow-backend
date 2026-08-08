@@ -1,15 +1,37 @@
-// src/modules/agent/entities/kpi-achievement.entity.ts
-@Column()
-agentId: number;
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Column()
-kpiDefinitionId: number;
+@Entity('kpi_achievements')
+export class KpiAchievement {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@Column({ type: 'date' })
-measuredDate: Date;
+  @Column()
+  agentId: string;
 
-@Column({ default: false })
-billed: boolean;
+  @Column()
+  kpiDefinitionId: string;
 
-@Column({ nullable: true })
-invoiceId: number;
+  @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
+  actualValue: number;
+
+  @Column({ type: 'date' })
+  measuredDate: Date;
+
+  @Column({ type: 'date', nullable: true })
+  measurementPeriodStart: Date;
+
+  @Column({ type: 'date', nullable: true })
+  measurementPeriodEnd: Date;
+
+  @Column({ default: 'pending' })
+  status: string;
+
+  @Column({ type: 'decimal', precision: 15, scale: 2, nullable: true })
+  billedAmount: number;
+
+  @Column({ default: false })
+  billed: boolean;
+
+  @Column({ nullable: true })
+  invoiceId: string;
+}
