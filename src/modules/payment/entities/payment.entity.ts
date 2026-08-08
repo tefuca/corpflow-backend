@@ -1,3 +1,4 @@
+import { forwardRef } from '@nestjs/common';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -108,7 +109,7 @@ export class Payment {
   @Column({ type: 'uuid', nullable: true })
   projectId: string;
 
-  @ManyToOne(() => Project, (project) => project.payments, { nullable: true })
+  @ManyToOne(() => forwardRef(() => Project), (project) => project.payments, { nullable: true })
   @JoinColumn({ name: 'projectId' })
   project: Project;
 
