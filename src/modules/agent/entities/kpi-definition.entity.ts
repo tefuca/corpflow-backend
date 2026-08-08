@@ -1,12 +1,35 @@
-// src/modules/agent/entities/kpi-definition.entity.ts
-@Column({ type: 'enum', enum: KpiType })
-kpiType: KpiType;
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-fixedAmount: number;
+export enum KpiType {
+  ACTIVATION = 'activation',
+  TRANSACTION_VOLUME = 'transaction_volume',
+  CUSTOMER_ACQUISITION = 'customer_acquisition',
+  RETENTION = 'retention',
+}
 
-@Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
-percentageRate: number;
+@Entity('kpi_definitions')
+export class KpiDefinition {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@Column({ nullable: true })
-projectId: number;
+  @Column()
+  name: string;
+
+  @Column({ type: 'enum', enum: KpiType })
+  kpiType: KpiType;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  fixedAmount: number;
+
+  @Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
+  percentageRate: number;
+
+  @Column({ nullable: true })
+  projectId: string;
+
+  @Column({ default: true })
+  active: boolean;
+
+  @Column({ nullable: true })
+  description: string;
+}
