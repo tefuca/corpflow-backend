@@ -3,8 +3,8 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../modules/auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../modules/rbac/guards/permission.guard';
-import { RequirePermission } from '../../modules/rbac/decorators/require-permission.decorator';
+import { PermissionGuard } from '../rbac/guards/permission.guard';
+import { RequirePermission } from '../rbac/decorators/require-permission.decorator';
 import { CommissionRateService } from '../services/commission-rate.service';
 import { CreateCommissionRateDto } from '../dto/create-commission-rate.dto';
 
