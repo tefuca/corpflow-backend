@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Agent } from './agent.entity';
+import { forwardRef } from '@nestjs/common';
 
 @Entity('daps')
 export class Dap {
@@ -30,6 +31,6 @@ export class Dap {
   @Column({ default: 0 })
   activeAgentCount: number;
 
-  @OneToMany(() => Agent, (agent) => agent.dap)
+  @OneToMany(() => forwardRef(() => Agent), (agent) => agent.dap)
   agents: Agent[];
 }
