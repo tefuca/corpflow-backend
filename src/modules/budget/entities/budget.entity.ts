@@ -9,7 +9,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Project } from '../projects/entities/project.entity';
+import { Project } from '../project/entities/project.entity';
 
 export enum BudgetStatus {
   DRAFT = 'draft',
@@ -58,7 +58,7 @@ export class Budget {
   @Column({ type: 'uuid', nullable: true })
   projectId: string;
 
-  @ManyToOne(() => Project, (project) => project.budgets, { nullable: true })
+  @ManyToOne(() => forwardRef(() => Project), (project) => project.budgets, { nullable: true })
   @JoinColumn({ name: 'projectId' })
   project: Project;
 
