@@ -11,9 +11,9 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../../auth/guards/permission.guard';
-import { RequirePermissions } from '../../../auth/decorators/require-permissions.decorator';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { PermissionGuard } from '../../auth/guards/permission.guard';
+import { RequirePermissions } from '../../auth/decorators/require-permissions.decorator';
 import { StockService } from '../services/stock.service';
 import { CreateStockItemDto } from '../dto/create-stock-item.dto';
 import { UpdateStockItemDto } from '../dto/update-stock-item.dto';

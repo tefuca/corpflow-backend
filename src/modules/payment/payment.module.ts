@@ -8,8 +8,8 @@ import { PaymentRequest } from './entities/payment-request.entity';
 import { ScheduleItem } from './entities/schedule-item.entity';
 import { PaymentConfirmation } from './entities/payment-confirmation.entity';
 import { PaymentApproval } from './entities/payment-approval.entity';
-import { Dap } from './entities/dap.entity';
-import { Agent } from './entities/agent.entity';
+import { Dap } from '../agent/entities/dap.entity';
+import { Agent } from '../agent/entities/agent.entity';
 import { ActivityType } from './entities/activity-type.entity';
 import { BulkUpload } from './entities/bulk-upload.entity';
 

@@ -1,53 +1,82 @@
 import {
-  Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe, UseGuards,
+  Controller, Get, Post, Patch, Delete, Body, Param, Query,
+  UseGuards, ParseUUIDPipe, ParseIntPipe, DefaultValuePipe,
+  HttpCode, HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../auth/guards/permission.guard';
-import { RequirePermissions } from '../../auth/decorators/require-permissions.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import { ProjectService } from './project.service';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { PermissionGuard } from '../auth/guards/permission.guard';
+import { RequirePermissions } from '../auth/decorators/require-permissions.decorator';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { ProjectsService } from './project.service';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+// import { ProjectStatus, ProjectPriority } from './entities/project.entity';
+import { ProjectStatus, ProjectPriority } from './dto/create-project.dto';
 
-@ApiTags('Project')
-@Controller('projects')
-@UseGuards(JwtAuthGuard, PermissionGuard)
+@ApiTags('Projects')
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard, PermissionGuard)
+@Controller('projects')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(private readonly projectService: ProjectsService) {}
+
+  @Post()
+  @RequirePermissions(['PROJECT_MANAGEMENT', 'add'])
+  @ApiOperation({ summary: 'Create a new project' })
+  create(
+    @Body() createProjectDto: CreateProjectDto,
+    @CurrentUser('sub') userId: string,
+  ) {
+    return this.projectService.create(createProjectDto, userId);
+  }
 
   @Get()
   @RequirePermissions(['PROJECT_MANAGEMENT', 'view'])
-  @ApiOperation({ summary: 'Get all projects' })
-  async findAll() {
-    return this.projectService.findAll();
+  @ApiOperation({ summary: 'List all projects' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'status', required: false, enum: ProjectStatus })
+  @ApiQuery({ name: 'priority', required: false, enum: ProjectPriority })
+  @ApiQuery({ name: 'cluster', required: false, type: String })
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
+    @Query('search') search?: string,
+    @Query('status') status?: ProjectStatus,
+    @Query('priority') priority?: ProjectPriority,
+    @Query('cluster') cluster?: string,
+  ) {
+    return this.projectService.findAll(page, limit, search, status, priority, cluster);
   }
 
   @Get(':id')
   @RequirePermissions(['PROJECT_MANAGEMENT', 'view'])
   @ApiOperation({ summary: 'Get project by ID' })
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.projectService.findOne(id);
   }
 
-  @Post()
-  @RequirePermissions(['PROJECT_MANAGEMENT', 'add'])
-  @ApiOperation({ summary: 'Create project' })
-  async create(@Body() dto: any, @CurrentUser('sub') userId: number) {
-    return this.projectService.create(dto, userId);
-  }
-
-  @Put(':id')
+  @Patch(':id')
   @RequirePermissions(['PROJECT_MANAGEMENT', 'edit'])
-  @ApiOperation({ summary: 'Update project' })
-  async update(@Param('id', ParseIntPipe) id: number, @Body() dto: any) {
-    return this.projectService.update(id, dto);
+  @ApiOperation({ summary: 'Update a project' })
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateProjectDto: UpdateProjectDto,
+    @CurrentUser('sub') userId: string,
+  ) {
+    return this.projectService.update(id, updateProjectDto, userId);
   }
 
   @Delete(':id')
   @RequirePermissions(['PROJECT_MANAGEMENT', 'delete'])
-  @ApiOperation({ summary: 'Delete project' })
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    await this.projectService.remove(id);
-    return { message: 'Project deleted' };
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Delete a project' })
+  remove(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser('sub') userId: string,
+  ) {
+    return this.projectService.remove(id, userId);
   }
 }

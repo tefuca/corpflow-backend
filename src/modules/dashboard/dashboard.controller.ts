@@ -1,29 +1,49 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../auth/guards/permission.guard';
-import { RequirePermissions } from '../../auth/decorators/require-permissions.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 import { DashboardService } from './dashboard.service';
 
 @ApiTags('Dashboard')
-@Controller('dashboard')
-@UseGuards(JwtAuthGuard, PermissionGuard)
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller('dashboard')
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
-  @Get('summary')
-  @RequirePermissions(['DASHBOARD', 'view'])
-  @ApiOperation({ summary: 'Get dashboard summary' })
-  async getSummary(@CurrentUser('sub') userId: number) {
-    return this.dashboardService.getSummary(userId);
+  @Get('stats')
+  @ApiOperation({ summary: 'Get overall dashboard statistics' })
+  getOverallStats() {
+    return this.dashboardService.getOverallStats();
   }
 
-  @Get('metrics')
-  @RequirePermissions(['DASHBOARD', 'view'])
-  @ApiOperation({ summary: 'Get dashboard metrics' })
-  async getMetrics() {
-    return this.dashboardService.getMetrics();
+  @Get('financial')
+  @ApiOperation({ summary: 'Get financial summary' })
+  getFinancialSummary() {
+    return this.dashboardService.getFinancialSummary();
+  }
+
+  @Get('payments')
+  @ApiOperation({ summary: 'Get payment status summary' })
+  getPaymentSummary() {
+    return this.dashboardService.getPaymentSummary();
+  }
+
+  @Get('agents')
+  @ApiOperation({ summary: 'Get agent performance summary' })
+  getAgentSummary() {
+    return this.dashboardService.getAgentSummary();
+  }
+
+  @Get('activities')
+  @ApiOperation({ summary: 'Get recent activities / audit trail' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  getRecentActivities(@Query('limit') limit: number = 10) {
+    return this.dashboardService.getRecentActivities(+limit);
+  }
+
+  @Get('projects')
+  @ApiOperation({ summary: 'Get project status summary' })
+  getProjectSummary() {
+    return this.dashboardService.getProjectSummary();
   }
 }

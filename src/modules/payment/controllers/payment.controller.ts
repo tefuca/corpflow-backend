@@ -17,10 +17,10 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiConsumes } from '@nestjs/swagger';
 import { PaymentService } from '../services/payment.service';
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../../auth/guards/permission.guard';
-import { RequirePermissions } from '../../../auth/decorators/require-permissions.decorator';
-import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { PermissionGuard } from '../../auth/guards/permission.guard';
+import { RequirePermissions } from '../../auth/decorators/require-permissions.decorator';
+import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 import { CreateDapPaymentDto } from '../dto/create-dap-payment.dto';
 import { CreateNonDapPaymentDto } from '../dto/create-non-dap-payment.dto';
 import { PaymentExecutionDto } from '../dto/payment-execution.dto';

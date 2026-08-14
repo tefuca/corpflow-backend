@@ -4,15 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  Index,
 } from 'typeorm';
-
-export enum AssetStatus {
-  ACTIVE = 'active',
-  UNDER_MAINTENANCE = 'under_maintenance',
-  DISPOSED = 'disposed',
-  IDLE = 'idle',
-}
 
 export enum DepreciationMethod {
   STRAIGHT_LINE = 'straight_line',
@@ -20,32 +12,38 @@ export enum DepreciationMethod {
   UNITS_OF_PRODUCTION = 'units_of_production',
 }
 
+export enum AssetStatus {
+  ACTIVE = 'active',
+  DISPOSED = 'disposed',
+  UNDER_MAINTENANCE = 'under_maintenance',
+  RETIRED = 'retired',
+}
+
 @Entity('fixed_assets')
 export class FixedAsset {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true, length: 50 })
-  @Index()
+  @Column({ unique: true })
   assetCode: string;
 
-  @Column({ length: 255 })
-  assetName: string;
+  @Column()
+  assetTag: string;
 
-  @Column({ length: 100 })
-  category: string;
+  @Column()
+  name: string;
 
-  @Column({ length: 100, nullable: true })
-  subCategory?: string;
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
 
-  @Column({ type: 'date', nullable: true })
-  purchaseDate?: Date;
-
-  @Column({ type: 'decimal', precision: 18, scale: 2, default: 0 })
+  @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
   purchaseCost: number;
 
-  @Column({ type: 'decimal', precision: 18, scale: 2, default: 0 })
+  @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
   currentValue: number;
+
+  @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
+  depreciationRate: number;
 
   @Column({
     type: 'enum',
@@ -54,20 +52,17 @@ export class FixedAsset {
   })
   depreciationMethod: DepreciationMethod;
 
+  @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
+  salvageValue: number;
+
   @Column({ type: 'int', default: 5 })
   usefulLifeYears: number;
 
-  @Column({ type: 'decimal', precision: 18, scale: 2, default: 0 })
-  salvageValue: number;
+  @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
+  accumulatedDepreciation: number;
 
-  @Column({ length: 255, nullable: true })
-  location?: string;
-
-  @Column({ length: 100, nullable: true })
-  department?: string;
-
-  @Column({ length: 255, nullable: true })
-  assignedTo?: string;
+  @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
+  netBookValue: number;
 
   @Column({
     type: 'enum',
@@ -76,20 +71,17 @@ export class FixedAsset {
   })
   status: AssetStatus;
 
-  @Column({ length: 255, nullable: true })
-  vendor?: string;
+  @Column({ nullable: true })
+  locationId: string | null;
 
-  @Column({ type: 'date', nullable: true })
-  warrantyExpiry?: Date;
+  @Column({ nullable: true })
+  departmentId: string | null;
 
-  @Column({ type: 'text', nullable: true })
-  notes?: string;
+  @Column({ nullable: true })
+  createdBy: string | null;
 
-  @Column({ length: 36, nullable: true })
-  createdBy: string;
-
-  @Column({ length: 36, nullable: true })
-  updatedBy: string;
+  @Column({ nullable: true })
+  updatedBy: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

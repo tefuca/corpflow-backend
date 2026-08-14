@@ -6,8 +6,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { BaseEntity } from '@common/entities/base.entity';
-import { Agent } from './agent.entity';
-import { Dap } from './dap.entity';
+import { Agent } from '../../agent/entities/agent.entity';
+import { Dap } from '../../agent/entities/dap.entity';
 import { ActivityType } from './activity-type.entity';
 import { ScheduleItem } from './schedule-item.entity';
 
@@ -33,15 +33,15 @@ export class PaymentRequest extends BaseEntity {
   @JoinColumn({ name: 'agent_id' })
   agent: Agent | null;
 
-  @Column({ name: 'agent_id', nullable: true })
-  agentId: number | null;
+  @Column({ name: 'agent_id', type: 'uuid', nullable: true })
+  agentId: string | null;
 
   @ManyToOne(() => Dap, (dap) => dap.paymentRequests, { nullable: true })
   @JoinColumn({ name: 'dap_id' })
   dap: Dap | null;
 
-  @Column({ name: 'dap_id', nullable: true })
-  dapId: number | null;
+  @Column({ name: 'dap_id', type: 'uuid', nullable: true })
+  dapId: string | null;
 
   @ManyToOne(() => ActivityType, (at) => at.paymentRequests, { nullable: true })
   @JoinColumn({ name: 'activity_type_id' })

@@ -6,7 +6,8 @@ import {
 } from 'typeorm';
 import { PaymentSchedule } from './payment-schedule.entity';
 import { PaymentRequest } from './payment-request.entity';
-import { Dap } from './dap.entity';
+import { Dap } from '../../agent/entities/dap.entity';
+
 
 export enum ItemStatus {
   PENDING = 'Pending',
@@ -38,8 +39,8 @@ export class ScheduleItem {
   @JoinColumn({ name: 'dap_id' })
   dap: Dap | null;
 
-  @Column({ name: 'dap_id', nullable: true })
-  dapId: number | null;
+  @Column({ name: 'dap_id', type: 'uuid', nullable: true })
+  dapId: string | null;
 
   @Column({ name: 'payment_description', type: 'text', nullable: true })
   paymentDescription: string | null;

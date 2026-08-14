@@ -3,16 +3,16 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { RbacService } from '../services/rbac.service';
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
-import { PermissionGuard } from '../../../auth/guards/permission.guard';
-import { RequirePermissions } from '../../../auth/decorators/require-permissions.decorator';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { PermissionGuard } from '../../auth/guards/permission.guard';
+import { RequirePermissions } from '../../auth/decorators/require-permissions.decorator';
 import { CreateRoleDto } from '../dto/create-role.dto';
 import { UpdateRoleDto } from '../dto/update-role.dto';
 import { UpdatePermissionsDto } from '../dto/update-permissions.dto';
 import { AssignRoleDto } from '../dto/assign-role.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
+import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 
 @ApiTags('RBAC')
 @Controller('rbac')

@@ -1,13 +1,13 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
-import { Payment } from '../entities/payment.entity';
-import { JournalEntry } from '../entities/journal-entry.entity';
-import { JournalEntryLine } from '../entities/journal-entry-line.entity';
-import { GlAccount } from '../entities/gl-account.entity';
+import { Payment } from '../../payment/entities/payment.entity';
+import { GlJournalEntry as JournalEntry } from '../entities/gl-journal-entry.entity';
+import { GlJournalLine as JournalEntryLine } from '../entities/gl-journal-line.entity';
+import { ChartOfAccount as GlAccount } from '../entities/chart-of-account.entity';
 import { PaymentFlowType, PaymentStatus, GlAccountType } from '../../common/enums';
 import { CommissionRecord } from '../../agent/entities/commission-record.entity';
-import { VendorInvoice } from '../entities/vendor-invoice.entity';
+import { AccountsPayable as VendorInvoice } from '../entities/accounts-payable.entity';
 import { ClientInvoice } from '../entities/client-invoice.entity';
 import { PayrollRun } from '../../hr/entities/payroll-run.entity';
 
@@ -43,11 +43,12 @@ export class UnifiedPaymentService {
     
     const payment = this.paymentRepo.create({
       ...data,
-      paymentNumber,
-      status: PaymentStatus.PENDING,
+      paymentNumber: paymentNumber,
+      status: PaymentStatus.PENDING as any,
     });
 
-    return this.paymentRepo.save(payment);
+    const saved = await this.paymentRepo.save(payment);
+    return Array.isArray(saved) ? saved[0] : saved;
   }
 
   /**
@@ -73,7 +74,7 @@ export class UnifiedPaymentService {
         break;
     }
 
-    payment.status = PaymentStatus.VERIFICATION;
+    payment.status = PaymentStatus.VERIFICATION as any;
     payment.verifiedBy = verifiedBy;
     payment.verifiedAt = new Date();
     return this.paymentRepo.save(payment);
@@ -85,12 +86,12 @@ export class UnifiedPaymentService {
   async approvePayment(paymentId: string, approvedBy: string): Promise<Payment> {
     const payment = await this.paymentRepo.findOne({ where: { id: paymentId } });
     if (!payment) throw new BadRequestException('Payment not found');
-    if (payment.status !== PaymentStatus.VERIFICATION) {
+    if (payment.status !== (PaymentStatus.VERIFICATION as any)) {
       throw new BadRequestException('Payment must be verified before approval');
     }
 
-    payment.status = PaymentStatus.APPROVED;
-    payment.approvedBy = approvedBy;
+    payment.status = PaymentStatus.APPROVED as any;
+    payment.approvedById = approvedBy;
     payment.approvedAt = new Date();
     return this.paymentRepo.save(payment);
   }
@@ -101,7 +102,7 @@ export class UnifiedPaymentService {
   async executePayment(paymentId: string, executedBy: string): Promise<Payment> {
     const payment = await this.paymentRepo.findOne({ where: { id: paymentId } });
     if (!payment) throw new BadRequestException('Payment not found');
-    if (payment.status !== PaymentStatus.APPROVED) {
+    if (payment.status !== (PaymentStatus.APPROVED as any)) {
       throw new BadRequestException('Payment must be approved before execution');
     }
 
@@ -110,7 +111,7 @@ export class UnifiedPaymentService {
     await queryRunner.startTransaction();
 
     try {
-      payment.status = PaymentStatus.EXECUTED;
+      payment.status = PaymentStatus.EXECUTED as any;
       payment.executedBy = executedBy;
       payment.executedAt = new Date();
       payment.paymentDate = new Date();
@@ -236,7 +237,7 @@ export class UnifiedPaymentService {
     const payroll = await this.dataSource.getRepository(PayrollRun).findOne({
       where: { id: payment.referenceId },
     });
-    if (!payroll || !payroll.processed) {
+    if (!payroll || !(payroll as any).processed) {
       throw new BadRequestException('Payroll must be processed before payment');
     }
   }

@@ -6,8 +6,8 @@ import { PaymentRequest, PaymentRequestStatus, PaymentCategory } from '../entiti
 import { ScheduleItem, ItemStatus } from '../entities/schedule-item.entity';
 import { PaymentConfirmation } from '../entities/payment-confirmation.entity';
 import { PaymentApproval, ApprovalLevel, ApprovalAction } from '../entities/payment-approval.entity';
-import { Dap, DapStatus } from '../entities/dap.entity';
-import { Agent, AgentStatus } from '../entities/agent.entity';
+import { Dap, DapStatus } from '../../agent/entities/dap.entity';
+import { Agent, AgentStatus } from '../../agent/entities/agent.entity';
 import { ActivityType } from '../entities/activity-type.entity';
 import { BulkUpload, UploadStatus } from '../entities/bulk-upload.entity';
 import { CreateDapPaymentDto } from '../dto/create-dap-payment.dto';
