@@ -8,13 +8,12 @@ import { UserRole } from './entities/user-role.entity';
 import { SystemFunction } from './entities/system-function.entity';
 import { RolePermission } from './entities/role-permission.entity';
 import { PermissionGuard } from '../auth/guards/permission.guard';
+import { SeedService } from './services/seed.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Role, User, UserRole, SystemFunction, RolePermission]),
-  ],
-  providers: [RbacService, PermissionGuard],
-  controllers: [RbacController],
-  exports: [RbacService, PermissionGuard],
+   imports: [TypeOrmModule.forFeature([Role, SystemFunction, RolePermission, UserRole])],
+  providers: [RbacService, SeedService],
+  exports: [RbacService, SeedService],
 })
 export class RbacModule {}
