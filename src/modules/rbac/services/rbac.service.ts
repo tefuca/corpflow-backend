@@ -296,7 +296,8 @@ export class RbacService {
       { functionCode: 'HR_MANAGEMENT', functionName: 'HR Management', menuPath: '/hr', iconClass: 'bi bi-people', displayOrder: 10 },
       { functionCode: 'FIXED_ASSET_MANAGEMENT', functionName: 'Fixed Asset Management', menuPath: '/fixed-assets', iconClass: 'bi bi-building', displayOrder: 20 },
       { functionCode: 'PROJECT_MANAGEMENT', functionName: 'Project Management', menuPath: '/projects', iconClass: 'bi bi-kanban', displayOrder: 30 },
-      { functionCode: 'DASHBOARD', functionName: 'Dashboard', menuPath: '/dashboard', iconClass: 'bi bi-speedometer', displayOrder: 1 },
+      { functionCode: 'STOCK', functionName: 'Stock Management', menuPath: '/stock', iconClass: 'bi bi-box-seam', displayOrder: 35 },
+	  { functionCode: 'DASHBOARD', functionName: 'Dashboard', menuPath: '/dashboard', iconClass: 'bi bi-speedometer', displayOrder: 1 },
       { functionCode: 'REPORT_MANAGEMENT', functionName: 'Report Management', menuPath: '/reports', iconClass: 'bi bi-file-earmark-bar-graph', displayOrder: 40 },
     ];
 
