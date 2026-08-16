@@ -48,7 +48,7 @@ export class StockController {
   @ApiResponse({ status: 201, description: 'Stock item created', type: StockResponseDto })
   @RequirePermissions('STOCK', 'add')
   async create(@Body() dto: CreateStockItemDto, @Request() req) {
-    return this.stockService.create(dto, req.user.userId);
+    return this.stockService.create(dto, req.user.id);
   }
 
   @Put(':id')
@@ -61,7 +61,7 @@ export class StockController {
     @Body() dto: UpdateStockItemDto,
     @Request() req,
   ) {
-    return this.stockService.update(id, dto, req.user.userId);
+    return this.stockService.update(id, dto, req.user.id);
   }
 
   @Delete(':id')
