@@ -6,6 +6,7 @@ import { Role } from './entities/role.entity';
 import { SystemFunction } from './entities/system-function.entity';
 import { RolePermission } from './entities/role-permission.entity';
 import { UserRole } from './entities/user-role.entity';
+import { User } from '../auth/entities/user.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Role, SystemFunction, RolePermission, UserRole])],
