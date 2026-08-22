@@ -5,7 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 // Existing modules (keep your current ones, add new ones)
-import { AuthModule } from './modules/auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { RbacModule } from './modules/rbac/rbac.module';
 import { PaymentModule } from './modules/payment/payment.module';
 
