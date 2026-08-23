@@ -4,12 +4,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
-// Existing modules (keep your current ones, add new ones)
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';          // ← ADD THIS
 import { RbacModule } from './modules/rbac/rbac.module';
 import { PaymentModule } from './modules/payment/payment.module';
 
-// NEW Feature Modules
 import { ProcurementModule } from './modules/procurement/procurement.module';
 import { StockModule } from './modules/stock/stock.module';
 import { FixedAssetModule } from './modules/fixed-asset/fixed-asset.module';
@@ -32,13 +31,11 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
       envFilePath: ['.env.local', '.env'],
     }),
 
-    // Serve uploaded files (receipts, KYC docs, asset tags)
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
     }),
 
-    // Database — PostgreSQL (matches your existing .env)
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -58,14 +55,13 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
       }),
     }),
 
-    // Existing modules
     AuthModule,
+    UsersModule,          // ← ADD THIS
     RbacModule,
     PaymentModule,
 
-    // NEW modules
     ProcurementModule,
-    StockModule, 
+    StockModule,
     FixedAssetModule,
     HrModule,
     ProjectModule,
@@ -73,11 +69,10 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
     FinanceModule,
     NotificationModule,
     DocumentModule,
-    ActivitiesModule, 
+    ActivitiesModule,
     AuditLogModule,
-    FixedAssetModule,
-    BudgetsModule, 
-    ExecutionsModule, 
+    BudgetsModule,
+    ExecutionsModule,
     MasterDataModule,
   ],
 })
