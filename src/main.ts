@@ -3,27 +3,35 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { DataSource } from 'typeorm';
 import helmet from 'helmet';
 import compression from 'compression';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
+import seedAdmin from './database/seeds/admin.seed'; // Admin seeder
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
-  // Security
+  // Security middleware
   app.use(helmet());
   app.use(compression());
 
-  // CORS
+  // CORS — FIXED: Only call once with all origins
   app.enableCors({
-    origin: ['http://localhost:3001', 'http://localhost:5173', 'http://localhost:5174'],
+    origin: [
+      'http://localhost:3001',
+      'http://localhost:5173',
+      'http://localhost:5174',
+    ],
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
-  // Global pipes
+  // Global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -33,17 +41,13 @@ async function bootstrap() {
     }),
   );
 
-  // Global filters & interceptors
+  // Global exception filter & response transformer
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
 
   // API prefix
   app.setGlobalPrefix('api/v1');
-  app.enableCors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-});
-  
+
   // Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('CRMS API')
@@ -63,6 +67,15 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+
+  // Run admin seed on startup (creates default admin if not exists)
+  try {
+    const dataSource = app.get(DataSource);
+    await seedAdmin(dataSource);
+    console.log('✅ Admin seed completed');
+  } catch (err) {
+    console.warn('⚠️ Seed skipped or failed:', err.message);
+  }
 
   const port = configService.get<number>('APP_PORT', 3000);
   await app.listen(port);
