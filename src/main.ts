@@ -39,7 +39,11 @@ async function bootstrap() {
 
   // API prefix
   app.setGlobalPrefix('api/v1');
-
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+});
+  
   // Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('CRMS API')
