@@ -9,8 +9,8 @@ import { UserRole } from './entities/user-role.entity';
 import { User } from '../auth/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Role, SystemFunction, RolePermission, UserRole])],
+  imports: [TypeOrmModule.forFeature([User, Role, SystemFunction, RolePermission, UserRole])],
   providers: [RbacService, SeedService],
-  exports: [RbacService, SeedService],
+  exports: [RbacService, SeedService, TypeOrmModule,   ],
 })
 export class RbacModule {}
