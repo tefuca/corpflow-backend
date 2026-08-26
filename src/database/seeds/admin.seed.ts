@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { User } from '../../modules/rbac/entities/user.entity';
+import { User, UserStatus } from '../../modules/rbac/entities/user.entity';
 import { Role } from '../../modules/rbac/entities/role.entity';
 import { UserRole } from '../../modules/rbac/entities/user-role.entity';
 import { RoleStatus } from '../../modules/rbac/entities/role.entity';
@@ -39,7 +39,7 @@ export default async function seedAdmin(dataSource: DataSource): Promise<void> {
       email: 'admin@corpflow.local',
       passwordHash: hash,
       fullName: 'System Administrator',
-      status: 'Active',
+      status: UserStatus.ACTIVE,
     });
     const savedUser = await userRepo.save(user);
 
