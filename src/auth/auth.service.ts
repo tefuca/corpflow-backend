@@ -42,7 +42,7 @@ export class AuthService {
       if (role) roleName = role.roleName;
     }
 
-    // Remove passwordHash from returned object
+    // Exclude passwordHash from returned object
     const { passwordHash, ...userWithoutPassword } = user;
 
     return {
