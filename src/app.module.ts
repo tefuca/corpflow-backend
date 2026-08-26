@@ -5,7 +5,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 import { AuthModule } from './auth/auth.module';
-// REMOVE: import { UsersModule } from './users/users.module';
 import { RbacModule } from './modules/rbac/rbac.module';
 import { PaymentModule } from './modules/payment/payment.module';
 
@@ -56,7 +55,6 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
     }),
 
     AuthModule,
-    // REMOVE: UsersModule,
     RbacModule,
     PaymentModule,
 
