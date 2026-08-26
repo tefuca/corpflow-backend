@@ -6,7 +6,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
-import { User } from '../modules/rbac/entities/user.entity'; // ← RBAC User
+import { User } from '../modules/rbac/entities/user.entity';
 import { UserRole } from '../modules/rbac/entities/user-role.entity';
 import { Role } from '../modules/rbac/entities/role.entity';
 import { RbacModule } from '../modules/rbac/rbac.module';
@@ -14,7 +14,7 @@ import { RbacModule } from '../modules/rbac/rbac.module';
 @Module({
   imports: [
     RbacModule,
-    TypeOrmModule.forFeature([User, UserRole, Role]), // ← Inject repos directly
+    TypeOrmModule.forFeature([User, UserRole, Role]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
