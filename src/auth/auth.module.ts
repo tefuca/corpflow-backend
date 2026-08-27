@@ -13,10 +13,10 @@ import { RbacModule } from '../modules/rbac/rbac.module';
 
 @Module({
   imports: [
-    RbacModule,
-    TypeOrmModule.forFeature([User, UserRole, Role]),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.registerAsync({
+    RbacModule,                                        // index 0
+    TypeOrmModule.forFeature([User, UserRole, Role]),  // index 1
+    PassportModule.register({ defaultStrategy: 'jwt' }), // index 2
+    JwtModule.registerAsync({                           // index 3
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
